@@ -33,7 +33,11 @@ class RichFileUploader < CarrierWave::Uploader::Base
 
   Rich.image_styles.each do |name,size|
     version name do
-      process :resize_to_fit => size.gsub("#", "").split("x").map(&:to_i)
+      if size.match("#")
+        process :resize_to_fill => size.gsub("#", "").split("x").map(&:to_i)
+      else
+        process :resize_to_fit => size.split("x").map(&:to_i)
+      end
     end
   end
   # version :rich_thumb do

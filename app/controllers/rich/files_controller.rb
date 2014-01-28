@@ -47,8 +47,8 @@ module Rich
     end
 
     def create
-
-      @file = RichFile.new(:simplified_type => params[:simplified_type])
+      @file = RichFile.new()
+      @file.simplified_type = params[:simplified_type]
 
       if(params[:scoped] == 'true')
         @file.owner_type = params[:scope_type]
@@ -59,6 +59,7 @@ module Rich
       file_params = params[:file] || params[:qqfile]
       if(file_params)
         file_params.content_type = Mime::Type.lookup_by_extension(file_params.original_filename.split('.').last.to_sym)
+        # binding.pry
         @file.rich_file = file_params
       end
 

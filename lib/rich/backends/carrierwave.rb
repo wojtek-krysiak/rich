@@ -68,6 +68,4 @@ module Rich
       end
     end
   end
-
-  RichFile.send(:include, Backends::CarrierWave)
 end
